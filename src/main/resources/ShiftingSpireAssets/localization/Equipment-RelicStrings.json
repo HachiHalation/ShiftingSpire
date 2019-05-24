@@ -1,0 +1,36 @@
+{
+  "shiftingspire:LongBlade": {
+    "NAME": "Long Blade",
+    "FLAVOR": "A heavy, but reliable, weapon.",
+    "DESCRIPTIONS": [
+      "Increases the potency of attacks during battle. NL ",
+      "#bLevel #b",
+      " NL ",
+      "Start each combat with #b",
+      " #yStrength. NL ",
+      "Whenever you gain #yStrength outside this relic, gain an additional #b",
+      " #Strength. #yStrength #yDown is also affected. NL ",
+      "Enemies with #yVulnerable receive #b+",
+      "% more damage. NL "
+    ]
+  },
+  "shiftingspire:StandardArmor": {
+    "NAME": "Standard Armor",
+    "FLAVOR": "Has a sturdy heft to it.",
+    "DESCRIPTIONS": [
+      "Increases defensive capabilities during battle. NL ",
+      "#bLevel #b",
+      " NL ",
+      "Start each combat with #b",
+      " #yDexterity. NL ",
+      "Start each combat with #b",
+      " #yPlated #yArmor. NL ",
+      "Whenever you gain #yPlated #yArmor or #yThorns outside this relic, gain an additional #b",
+      " #yPlated #yArmor or #yThorns. NL ",
+      "Gain #b",
+      " #yhealth. NL "
+
+    ]
+
+  }
+}
