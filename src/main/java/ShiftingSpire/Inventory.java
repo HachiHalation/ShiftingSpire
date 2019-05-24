@@ -10,6 +10,8 @@ import com.megacrit.cardcrawl.characters.Ironclad;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.AsyncSaver;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -27,8 +29,7 @@ public class Inventory {
 
     void saveInventory() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("inventory", inventory);
-        map.put("ironclad", ironcladEquipped);
+        map.put("inventory", this);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String str = gson.toJson(map);
         String filepath = "shiftingspire/saves/inventory.data";
@@ -38,14 +39,29 @@ public class Inventory {
     void loadInventory() {
         Gson gson = new Gson();
 
-        try {
-            FileHandle file = Gdx.files.local("shiftingspire/saves/inventory.data");
-            String str = file.readString();
-            Inventory temp = gson.fromJson(str, Inventory.class);
-            inventory = temp.inventory;
-            ironcladEquipped = temp.ironcladEquipped;
-        } catch (GdxRuntimeException e) {
-            ShiftingSpire.logger.info("Bad/no inventory data file");
+
+        FileHandle file = Gdx.files.local("shiftingspire/saves/inventory.data");
+        if(!file.exists()) {
+            File dir = new File("shiftingspire/saves");
+            dir.mkdirs();
+            File save = new File("shiftingspire/saves/inventory.data");
+            try {
+                save.createNewFile();
+            } catch (IOException e) {
+                ShiftingSpire.logger.info("Failed to create data file");
+                e.printStackTrace();
+            }
+            ironcladEquipped = EquipmentHelper.generate(EquipmentID.LONGBLADE, 0); //TODO: Other classes
+        }
+        else {
+            try {
+                String str = file.readString();
+                Inventory temp = gson.fromJson(str, Inventory.class);
+                inventory = temp.inventory;
+                ironcladEquipped = temp.ironcladEquipped;
+            } catch (GdxRuntimeException e) {
+                ShiftingSpire.logger.info("Bad/no inventory data file");
+            }
         }
     }
 

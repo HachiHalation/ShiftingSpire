@@ -14,8 +14,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
-
-// TODO: INVENTORY TOP BAR, ARMORY SCREEN, MULTIPLE PATCHES
 public class ShiftingSpire implements
         PostInitializeSubscriber,
         StartGameSubscriber,
@@ -25,20 +23,20 @@ public class ShiftingSpire implements
         PostUpdateSubscriber,
         RenderSubscriber {
 
-    public static final String MOD_NAME = "Shifting Spire";
-    public static final String AUTHOR = "HachiHalation";
-    public static final String DESCRIPTION = "Lets make Slay The Spire into a Spire(dungeon) Crawler!";
+    private static final String MOD_NAME = "Shifting Spire";
+    private static final String AUTHOR = "HachiHalation";
+    private static final String DESCRIPTION = "Lets make Slay The Spire into a Spire(dungeon) Crawler!";
 
-    public static final Logger logger = LogManager.getLogger(ShiftingSpire.class.getName());
+    static final Logger logger = LogManager.getLogger(ShiftingSpire.class.getName());
 
-    protected static Random stat_random;
+    static Random stat_random;
 
     private static BuffHelper bhelper;
-    public static InventoryScreen inventoryScreen;
-    public static ArmoryRewardScreen armoryRewardScreen;
-    protected static Inventory inventory;
+    private static InventoryScreen inventoryScreen;
+    private static ArmoryRewardScreen armoryRewardScreen;
+    static Inventory inventory;
 
-    public static PlayerID player;
+    static PlayerID player;
 
 
     public ShiftingSpire() {
