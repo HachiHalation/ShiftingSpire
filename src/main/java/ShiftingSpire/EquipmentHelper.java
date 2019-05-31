@@ -49,6 +49,10 @@ public class EquipmentHelper {
         return base.get(eid).makeType(level, attr);
     }
 
+    public static Equipment createFromData(InvenData data) {
+        return createFromAttr(data.eid, data.level, data.attributes);
+    }
+
 }
 
 enum PlayerID{

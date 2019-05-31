@@ -9,7 +9,7 @@
       "Start each combat with #b",
       " #yStrength. NL ",
       "Whenever you gain #yStrength outside this relic, gain an additional #b",
-      " #Strength. #yStrength #yDown is also affected. NL ",
+      " #yStrength. #yStrength #yDown is also affected. NL ",
       "Enemies with #yVulnerable receive #b+",
       "% more damage. NL "
     ]

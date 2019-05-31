@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public class InventoryTopBar extends TopPanelItem {
-    private static String path = "EquipmentModAssets/chests/topBarChest.png";
+    private static String path = "ShiftingSpireAssets/chests/topBarChest.png";
     private static String ID = "shiftingspire:inventory";
     private InventoryScreen screen;
 

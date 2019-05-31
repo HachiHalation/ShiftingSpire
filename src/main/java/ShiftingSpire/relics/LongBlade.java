@@ -64,6 +64,16 @@ public class LongBlade extends ShiftingSpire.Equipment {
         }
     }
 
+    @Override
+    public void atBattleStart() {
+        bufflock = true;
+        debufflock = false;
+        if ( str > 0) {
+            AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, str), str));
+            AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+        }
+    }
+
     public int getVulnBuff(){
         return vulnbuff;
     }

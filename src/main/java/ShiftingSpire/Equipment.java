@@ -5,6 +5,8 @@ import basemod.abstracts.CustomRelic;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 
+import java.util.Arrays;
+
 public abstract class Equipment extends CustomRelic {
     protected int[] attributes;
     int[] weights;
@@ -31,6 +33,7 @@ public abstract class Equipment extends CustomRelic {
         for(int i = 0; i < attributes.length; ++i) {
             if(attributes[i] != 0)
                 desc.append(DESCRIPTIONS[des++]).append(attributes[i] * weights[i]).append(DESCRIPTIONS[des++]);
+            else des+=2;
         }
 
         return desc.toString();
@@ -47,5 +50,18 @@ public abstract class Equipment extends CustomRelic {
         UnlockTracker.markRelicAsSeen(this.relicId);
     }
 
+    public InvenData save() {
+        return new InvenData(equipid, level, attributes);
+    }
+
     public abstract Equipment makeType(int level, int[] attributes);
+
+    @Override
+    public String toString() {
+        return  equipid + "{" +
+                "attributes=" + Arrays.toString(attributes) +
+                ", weights=" + Arrays.toString(weights) +
+                ", level=" + level +
+                '}';
+    }
 }

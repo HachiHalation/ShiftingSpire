@@ -13,10 +13,10 @@ import java.util.ArrayList;
 
 public class InventoryScreen {
     public static final int RELICS_PER_LINE = 10;
-    private static float startX = Settings.WIDTH * 0.1F;
-    private static float startY = Settings.HEIGHT * 0.75F;
-    private static float padX = (Settings.WIDTH * 0.8F)/9.0F;
-    private static float padY = AbstractRelic.RAW_W;
+    private static float startX;
+    private static float startY;
+    private static float padX;
+    private static float padY;
 
     private Equipment hovered;
     private Equipment clicked;
@@ -30,6 +30,11 @@ public class InventoryScreen {
     public boolean open;
 
     public InventoryScreen(Inventory inventory) {
+        startX = Settings.WIDTH * 0.1F;
+        startY = Settings.HEIGHT * 0.75F;
+        padX = (Settings.WIDTH * 0.8F)/9.0F;
+        padY = AbstractRelic.RAW_W;
+
         this.inventory = inventory;
         equipButtton = new ConfirmButton("Equip");
         open = false;

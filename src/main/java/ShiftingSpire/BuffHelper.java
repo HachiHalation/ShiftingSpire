@@ -4,7 +4,6 @@ import ShiftingSpire.relics.LongBlade;
 import basemod.BaseMod;
 import basemod.interfaces.PostPowerApplySubscriber;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 public class BuffHelper implements PostPowerApplySubscriber {

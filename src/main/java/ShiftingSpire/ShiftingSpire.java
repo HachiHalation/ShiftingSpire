@@ -6,6 +6,7 @@ import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.characters.*;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Random;
 
+@SpireInitializer
 public class ShiftingSpire implements
         PostInitializeSubscriber,
         StartGameSubscriber,
@@ -46,7 +48,8 @@ public class ShiftingSpire implements
         bhelper = new BuffHelper();
     }
 
-    public static  void initialize() {
+    public static void initialize() {
+        logger.info("Starting ShiftingSpire...");
         ShiftingSpire mod = new ShiftingSpire();
     }
 
@@ -58,7 +61,7 @@ public class ShiftingSpire implements
         return false;
     }
 
-    @java.lang.Override
+    @Override
     public void receiveEditRelics() {
         logger.info("Generating equipment info...");
         EquipmentHelper.initializeEquipment();
@@ -68,12 +71,12 @@ public class ShiftingSpire implements
         inventory.saveInventory();
     }
 
-    @java.lang.Override
+    @Override
     public void receiveEditStrings() {
         BaseMod.loadCustomStringsFile(RelicStrings.class, "ShiftingSpireAssets/localization/Equipment-RelicStrings.json");
     }
 
-    @java.lang.Override
+    @Override
     public void receivePostInitialize() {
         Texture badgeTexture = new Texture("ShiftingSpireAssets/relics/ggg.png");
         ModPanel settingPanel = new ModPanel();
@@ -86,22 +89,22 @@ public class ShiftingSpire implements
 
     }
 
-    @java.lang.Override
+    @Override
     public void receivePostUpdate() {
         if(inventoryScreen.open) inventoryScreen.update();
     }
 
-    @java.lang.Override
+    @Override
     public void receiveRender(SpriteBatch spriteBatch) {
         if(inventoryScreen.open) inventoryScreen.render(spriteBatch);
     }
 
-    @java.lang.Override
+    @Override
     public void receiveStartAct() {
         inventory.saveInventory();
     }
 
-    @java.lang.Override
+    @Override
     public void receiveStartGame() {
         player = detectPlayer();
         inventory.reequip(player);

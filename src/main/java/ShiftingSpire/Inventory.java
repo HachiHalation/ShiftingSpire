@@ -6,12 +6,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.megacrit.cardcrawl.characters.Ironclad;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.AsyncSaver;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -27,9 +31,21 @@ public class Inventory {
         loadInventory();
     }
 
+
+
     void saveInventory() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("inventory", this);
+        ShiftingSpire.logger.info("Saving inventory...");
+        HashMap<String, ArrayList<InvenData>> map = new HashMap<>();
+
+        ArrayList<InvenData> items = new ArrayList<>();
+        for(Equipment e: inventory) {
+            items.add(e.save());
+        }
+
+        map.put("inventory", items);
+        items = new ArrayList<>();
+        items.add(ironcladEquipped.save());
+        map.put("ironclad", items);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String str = gson.toJson(map);
         String filepath = "shiftingspire/saves/inventory.data";
@@ -39,7 +55,7 @@ public class Inventory {
     void loadInventory() {
         Gson gson = new Gson();
 
-
+        ShiftingSpire.logger.info("Loading inventory file...");
         FileHandle file = Gdx.files.local("shiftingspire/saves/inventory.data");
         if(!file.exists()) {
             File dir = new File("shiftingspire/saves");
@@ -51,22 +67,36 @@ public class Inventory {
                 ShiftingSpire.logger.info("Failed to create data file");
                 e.printStackTrace();
             }
-            ironcladEquipped = EquipmentHelper.generate(EquipmentID.LONGBLADE, 0); //TODO: Other classes
         }
         else {
             try {
                 String str = file.readString();
-                Inventory temp = gson.fromJson(str, Inventory.class);
-                inventory = temp.inventory;
-                ironcladEquipped = temp.ironcladEquipped;
+                Type mapType = new TypeToken<HashMap<String, ArrayList<InvenData>>>() {}.getType();
+                HashMap<String, ArrayList<InvenData>> map = gson.fromJson(str, mapType);
+                ShiftingSpire.logger.info("MAP: " + map.toString());
+                ArrayList<InvenData> items = map.get("inventory");
+                for(InvenData i : items) {
+                    addToInventory(EquipmentHelper.createFromData(i));
+                }
+                ironcladEquipped = EquipmentHelper.createFromData(map.get("ironclad").get(0));
+                ShiftingSpire.logger.info("INVENTORY: " + inventory.toString());
+
             } catch (GdxRuntimeException e) {
                 ShiftingSpire.logger.info("Bad/no inventory data file");
+            } catch (JsonSyntaxException j) {
+                ShiftingSpire.logger.info("Bad inventory file");
+                file.delete();
             }
         }
+
+        if(ironcladEquipped == null)
+            ironcladEquipped = EquipmentHelper.generate(EquipmentID.LONGBLADE, 0); //TODO: Other classes
+
     }
 
     void addToInventory(Equipment e) {
         inventory.add(e);
+        e.isObtained = true;
     }
 
     void equip(Equipment e, PlayerID player) {
@@ -103,10 +133,17 @@ public class Inventory {
         int i = 0;
         for(Equipment e: inventory) {
             int mod = i % perline;
-            if(mod == 0 && i != 0) ++linenum;
+
+            if(mod == 0 && i != 0)
+                ++linenum;
+
             e.targetX = x + mod*padx;
-            e.targetY = y + mod*pady;
+            e.targetY = y - linenum*pady;
             ++i;
+            ShiftingSpire.logger.info("DEBUG:: \n" +
+                    "inven num:" + i + "\n" +
+                    "x: " + e.targetX + " padx: "+ padx + " currx: " + e.currentX + "\n" +
+                    "y: " + e.targetY + " pady:" + pady + " curry: " + e.currentY + "\n");
         }
     }
 
@@ -120,4 +157,24 @@ public class Inventory {
         return hovered;
     }
 
+}
+
+class InvenData {
+    int level;
+    EquipmentID eid;
+    int[] attributes;
+    public InvenData(EquipmentID eid, int level, int[] attributes) {
+        this.level = level;
+        this.eid = eid;
+        this.attributes = attributes;
+    }
+
+    @Override
+    public String toString() {
+        return "InvenData{" +
+                "level=" + level +
+                ", eid=" + eid +
+                ", attributes=" + Arrays.toString(attributes) +
+                '}';
+    }
 }
