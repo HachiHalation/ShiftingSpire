@@ -56,6 +56,7 @@ public abstract class Equipment extends CustomRelic {
 
     public abstract Equipment makeType(int level, int[] attributes);
 
+
     @Override
     public String toString() {
         return  equipid + "{" +

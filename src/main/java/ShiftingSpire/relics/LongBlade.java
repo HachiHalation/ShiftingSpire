@@ -2,8 +2,13 @@ package ShiftingSpire.relics;
 
 import ShiftingSpire.Equipment;
 import ShiftingSpire.EquipmentID;
+import ShiftingSpire.powers.DemonicStrength;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
+import com.megacrit.cardcrawl.actions.unique.AddCardToDeckAction;
+import com.megacrit.cardcrawl.cards.red.Flex;
+import com.megacrit.cardcrawl.cards.red.LimitBreak;
+import com.megacrit.cardcrawl.cards.red.Pummel;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
@@ -68,14 +73,26 @@ public class LongBlade extends ShiftingSpire.Equipment {
     public void atBattleStart() {
         bufflock = true;
         debufflock = false;
+
+        AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         if ( str > 0) {
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, str), str));
-            AbstractDungeon.actionManager.addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
         }
+
+        if(level >= 5)
+            AbstractDungeon.actionManager.addToTop(new AddCardToDeckAction(new Flex()));
+        if(level >= 10)
+            AbstractDungeon.actionManager.addToTop(new AddCardToDeckAction(new Pummel()));
+        if(level >= 15)
+            AbstractDungeon.actionManager.addToTop(new AddCardToDeckAction(new LimitBreak()));
+        if(level >= 20)
+            AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player,
+                    AbstractDungeon.player, new DemonicStrength(AbstractDungeon.player)));
+
     }
 
     public int getVulnBuff(){
-        return vulnbuff;
+        return vulnbuff*weights[VULN_BUFF_IDX];
     }
 
     @Override
@@ -87,4 +104,5 @@ public class LongBlade extends ShiftingSpire.Equipment {
     public Equipment makeType(int level, int[] attributes) {
         return new LongBlade(level, attributes);
     }
+
 }
