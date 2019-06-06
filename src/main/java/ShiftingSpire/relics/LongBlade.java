@@ -32,7 +32,7 @@ public class LongBlade extends ShiftingSpire.Equipment {
     private boolean debufflock = false;
 
     public LongBlade(int level, int[] attr) {
-        super(ID, LongBladeHelper.getTexture(), RelicTier.STARTER, LandingSound.SOLID,
+        super(ID, LongBladeHelper.getTexture(level), RelicTier.STARTER, LandingSound.SOLID,
                   level, EquipmentID.LONGBLADE, attr, weights);
 
         str = attr[STRENGTH_IDX];

@@ -95,11 +95,11 @@
   </dependencies>
   <properties>
     <ModTheSpire.version>3.10.1</ModTheSpire.version>
-    <BaseMod.version>5.13.0</BaseMod.version>
-    <StSLib.version>1.16.0</StSLib.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <SlayTheSpire.version>01-23-2019</SlayTheSpire.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <BaseMod.version>5.13.0</BaseMod.version>
+    <StSLib.version>1.16.0</StSLib.version>
   </properties>
 </project>
 

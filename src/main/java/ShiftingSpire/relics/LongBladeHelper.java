@@ -5,8 +5,13 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.HashMap;
 
 public class LongBladeHelper {
-    public static Texture getTexture(){
-        return new Texture("ShiftingSpireAssets/relics/heavyBladeTemp.png");
+    public static Texture getTexture(int level){
+        if(level < 5)
+            return new Texture("ShiftingSpireAssets/relics/heavybladebasic.png");
+        if(level < 10)
+            return new Texture("ShiftingSpireAssets/relics/heavyblade5.png");
+        
+        return new Texture("ShiftingSpireAssets/relics/heavyblade10.png");
     }
 
     public static String[] initializeCategories() {
