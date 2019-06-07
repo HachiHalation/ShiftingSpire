@@ -36,6 +36,15 @@ public abstract class Equipment extends CustomRelic {
             else des+=2;
         }
 
+        if(level >= 5)
+            desc.append(DESCRIPTIONS[des++]);
+        if(level >= 10)
+            desc.append(DESCRIPTIONS[des++]);
+        if(level >= 15)
+            desc.append(DESCRIPTIONS[des++]);
+        if(level >= 20)
+            desc.append(DESCRIPTIONS[des++]);
+
         return desc.toString();
     }
 
