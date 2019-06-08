@@ -14,9 +14,28 @@
       "% more damage. NL ",
       "At the start of combat, add a Flex to your deck. NL",
       "At the start of combat, add a Pummel to your deck. NL",
-      "At the start of combat, add a Limit Break to your deck. NL",
+      "At the start of combat, add a Limit Break+ to your deck. NL",
       "At the start of combat, gain 1 Demonic Strength. NL"
 
+    ]
+  },
+  "shiftingspire:InfectedDagger": {
+    "NAME": "Infected Dagger",
+    "FLAVOR": "Has quite a potent smell...",
+    "DESCRIPTIONS": [
+      "Increases the potency of poison during battle. NL ",
+      "#bLevel #b",
+      " NL ",
+      "Start each combat with #b",
+      " #yEnvenom. NL ",
+      "Start each combat with #b",
+      " #yNoxious #yFumes. NL ",
+      "Enemies receive #b",
+      "% more poison. NL ",
+      "At the start of combat, exhaust #b3 Strikes and add Deadly Poisons to replace them. (Upgrades are kept)NL",
+      "At the start of combat, add a Catalyst to your deck. NL",
+      "At the start of combat, add a Corpse Explosion to your deck. NL",
+      "At the start of combat, gain 1 Pure Poison. Exhaust all Strikes and add that many Deadly Poisons to replace them.NL"
     ]
   },
   "shiftingspire:StandardArmor": {

@@ -24,6 +24,7 @@ public class Inventory {
     private HashSet<Equipment> inventory;
 
     Equipment ironcladEquipped;
+    Equipment silentEquipped;
     //TODO: other classes
 
     Inventory(){
@@ -46,6 +47,9 @@ public class Inventory {
         items = new ArrayList<>();
         items.add(ironcladEquipped.save());
         map.put("ironclad", items);
+        items = new ArrayList<>();
+        items.add(silentEquipped.save());
+        map.put("silent", items);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String str = gson.toJson(map);
         String filepath = "shiftingspire/saves/inventory.data";
@@ -79,6 +83,7 @@ public class Inventory {
                     addToInventory(EquipmentHelper.createFromData(i));
                 }
                 ironcladEquipped = EquipmentHelper.createFromData(map.get("ironclad").get(0));
+                silentEquipped = EquipmentHelper.createFromData(map.get("silent").get(0));
                 ShiftingSpire.logger.info("INVENTORY: " + inventory.toString());
 
             } catch (GdxRuntimeException e) {
@@ -91,6 +96,8 @@ public class Inventory {
 
         if(ironcladEquipped == null)
             ironcladEquipped = EquipmentHelper.generate(EquipmentID.LONGBLADE, 0); //TODO: Other classes
+        if(silentEquipped == null)
+            silentEquipped = EquipmentHelper.generate(EquipmentID.INFECTEDDAGGER, 0);
 
     }
 
@@ -100,7 +107,9 @@ public class Inventory {
     }
 
     void equip(Equipment e, PlayerID player) {
+        Equipment equipped;
         if(player == PlayerID.IRONCLAD) {
+            equipped = ironcladEquipped;
             unequip(ironcladEquipped);
             ironcladEquipped = (Equipment) e.makeCopy();
             ironcladEquipped.instantObtain();

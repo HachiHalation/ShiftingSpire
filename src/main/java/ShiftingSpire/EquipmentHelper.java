@@ -55,9 +55,3 @@ public class EquipmentHelper {
 
 }
 
-enum PlayerID{
-    IRONCLAD,
-    SILENT,
-    DEFECT,
-    CUSTOM
-}

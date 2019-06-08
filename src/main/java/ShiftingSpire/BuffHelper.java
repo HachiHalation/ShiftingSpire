@@ -1,5 +1,6 @@
 package ShiftingSpire;
 
+import ShiftingSpire.relics.InfectedDagger;
 import ShiftingSpire.relics.LongBlade;
 import basemod.BaseMod;
 import basemod.interfaces.PostPowerApplySubscriber;
@@ -16,14 +17,22 @@ public class BuffHelper implements PostPowerApplySubscriber {
         if(target != null && target.isPlayer) {
             if(ShiftingSpire.player == PlayerID.IRONCLAD) {
                 Equipment ironclad = ShiftingSpire.inventory.ironcladEquipped;
-                switch(ShiftingSpire.inventory.ironcladEquipped.equipid) {
-                    case LONGBLADE:
+                if(ironclad.equipid == EquipmentID.LONGBLADE) {
                         if(abstractPower.ID.equals("Strength") && abstractPower.amount > 0)
                             ((LongBlade) ironclad).applyStrMod();
                         if(abstractPower.ID.equals("Flex"))
                             ((LongBlade) ironclad).appleStrModDown();
-                        break;
 
+                }
+            }
+        }
+        if(target != null) {
+            if(ShiftingSpire.player == PlayerID.SILENT) {
+                Equipment silent = ShiftingSpire.inventory.silentEquipped;
+                if(silent.equipid == EquipmentID.INFECTEDDAGGER){
+                    if(abstractPower.ID.equals("Poison")) {
+                        abstractPower.amount *= ((InfectedDagger) silent).getPoisonBuff(); //TODO: HOW DO I TELL THE PLAYER HOW MUCH POISON THEY ARE APPLYING????
+                    }
                 }
             }
         }

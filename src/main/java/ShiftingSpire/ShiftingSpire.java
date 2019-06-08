@@ -38,7 +38,7 @@ public class ShiftingSpire implements
     private static ArmoryRewardScreen armoryRewardScreen;
     static Inventory inventory;
 
-    static PlayerID player;
+    public static PlayerID player;
 
 
     public ShiftingSpire() {

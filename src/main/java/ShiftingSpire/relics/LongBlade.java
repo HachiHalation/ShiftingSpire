@@ -84,8 +84,10 @@ public class LongBlade extends ShiftingSpire.Equipment {
             AbstractDungeon.actionManager.addToTop(new MakeTempCardInDrawPileAction(new Flex(), 1, true, true));
         if(level >= 10)
             AbstractDungeon.actionManager.addToTop(new MakeTempCardInDrawPileAction(new Pummel(), 1, true, true));
-        if(level >= 15)
-            AbstractDungeon.actionManager.addToTop(new MakeTempCardInDrawPileAction(new LimitBreak(), 1, true, true));
+        if(level >= 15){
+            LimitBreak lb = new LimitBreak();
+            lb.upgrade();
+            AbstractDungeon.actionManager.addToTop(new MakeTempCardInDrawPileAction(lb, 1, true, true)); }
         if(level >= 20)
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player,
                     AbstractDungeon.player, new DemonicStrength(AbstractDungeon.player)));

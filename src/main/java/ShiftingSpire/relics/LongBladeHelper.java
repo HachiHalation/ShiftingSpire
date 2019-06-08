@@ -7,11 +7,11 @@ import java.util.HashMap;
 public class LongBladeHelper {
     public static Texture getTexture(int level){
         if(level < 5)
-            return new Texture("ShiftingSpireAssets/relics/heavybladebasic.png");
+            return new Texture("ShiftingSpireAssets/relics/longbladebasic.png");
         if(level < 10)
-            return new Texture("ShiftingSpireAssets/relics/heavyblade5.png");
+            return new Texture("ShiftingSpireAssets/relics/longblade5.png");
         
-        return new Texture("ShiftingSpireAssets/relics/heavyblade10.png");
+        return new Texture("ShiftingSpireAssets/relics/longblade10.png");
     }
 
     public static String[] initializeCategories() {
