@@ -23,7 +23,7 @@ import com.megacrit.cardcrawl.powers.NoxiousFumesPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 
 public class InfectedDagger extends ShiftingSpire.Equipment{
-    private static final String ID = "shiftingspire:infecteddagger";
+    private static final String ID = "shiftingspire:InfectedDagger";
     private static final int[] weights = {1, 1, 5};
     private static final int ENV_INDEX = 0;
     private static final int NOX_INDEX = 1;

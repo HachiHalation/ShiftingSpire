@@ -1,6 +1,7 @@
 package ShiftingSpire;
 
 
+import ShiftingSpire.relics.InfectedDaggerHelper;
 import ShiftingSpire.relics.LongBlade;
 import ShiftingSpire.relics.LongBladeHelper;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,9 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class EquipmentHelper {
-    private static HashMap<EquipmentID, Equipment> base;
     private static HashMap<EquipmentID, String[]> categs;
     private static HashMap<EquipmentID, HashMap<String, Integer>> costs;
+    private static HashMap<EquipmentID, Equipment> base;
     private static HashMap<EquipmentID, Texture> textures;
 
     public static void initializeEquipment() {
@@ -20,11 +21,9 @@ public class EquipmentHelper {
         costs = new HashMap<EquipmentID, HashMap<String, Integer>>();
         textures = new HashMap<EquipmentID, Texture>();
 
-        ShiftingSpire.logger.info("Add LongBlade");
-        categs.put(EquipmentID.LONGBLADE, LongBladeHelper.initializeCategories());
-        costs.put(EquipmentID.LONGBLADE, LongBladeHelper.initializeCosts());
-        base.put(EquipmentID.LONGBLADE, new LongBlade(0, allocatePoints(0,
-                costs.get(EquipmentID.LONGBLADE), categs.get(EquipmentID.LONGBLADE))));
+        LongBladeHelper.initialize(categs, costs, base);
+        InfectedDaggerHelper.initialize(categs, costs, base);
+
     }
 
     public static int[] allocatePoints(int level, HashMap<String, Integer> costs, String[] categ) {

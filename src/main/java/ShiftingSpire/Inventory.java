@@ -94,9 +94,9 @@ public class Inventory {
         }
 
         if(!equipped.containsKey(PlayerID.IRONCLAD))
-            equipped.put(PlayerID.IRONCLAD,EquipmentHelper.generate(EquipmentID.LONGBLADE, 0));
+            equipped.put(PlayerID.IRONCLAD, EquipmentHelper.generate(EquipmentID.LONGBLADE, 0));
         if(!equipped.containsKey(PlayerID.SILENT))
-            equipped.put(PlayerID.SILENT,EquipmentHelper.generate(EquipmentID.INFECTEDDAGGER, 0)); //TODO: Other classes
+            equipped.put(PlayerID.SILENT, EquipmentHelper.generate(EquipmentID.INFECTEDDAGGER, 0)); //TODO: Other classes
 
     }
 

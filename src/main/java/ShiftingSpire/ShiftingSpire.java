@@ -29,7 +29,7 @@ public class ShiftingSpire implements
     private static final String AUTHOR = "HachiHalation";
     private static final String DESCRIPTION = "Lets make Slay The Spire into a Spire(dungeon) Crawler!";
 
-    static final Logger logger = LogManager.getLogger(ShiftingSpire.class.getName());
+    public static final Logger logger = LogManager.getLogger(ShiftingSpire.class.getName());
 
     static Random stat_random;
 
@@ -68,6 +68,7 @@ public class ShiftingSpire implements
         inventory = new Inventory();
 
         BaseMod.addRelic(EquipmentHelper.generate(EquipmentID.LONGBLADE, 0), RelicType.RED);
+        BaseMod.addRelic(EquipmentHelper.generate(EquipmentID.INFECTEDDAGGER, 0), RelicType.GREEN);
         inventory.saveInventory();
     }
 
