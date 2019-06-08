@@ -118,8 +118,15 @@ public class Inventory {
 
     private void unequip(Equipment e) {
         Equipment eq = (Equipment) AbstractDungeon.player.getRelic(e.relicId);
-        if(eq == e)
-            AbstractDungeon.player.loseRelic(e.relicId);
+
+        if(eq == e) {
+            ShiftingSpire.logger.info("Removing " + e.relicId + "\n");
+            boolean result = AbstractDungeon.player.loseRelic(e.relicId);
+            if(result)
+                ShiftingSpire.logger.info("Removed succesfully");
+            else
+                ShiftingSpire.logger.info("FAILED!");
+        }
         //TODO: other things after unequip
     }
 
@@ -140,10 +147,6 @@ public class Inventory {
             e.targetX = x + mod*padx;
             e.targetY = y - linenum*pady;
             ++i;
-            ShiftingSpire.logger.info("DEBUG:: \n" +
-                    "inven num:" + i + "\n" +
-                    "x: " + e.targetX + " padx: "+ padx + " currx: " + e.currentX + "\n" +
-                    "y: " + e.targetY + " pady:" + pady + " curry: " + e.currentY + "\n");
         }
     }
 

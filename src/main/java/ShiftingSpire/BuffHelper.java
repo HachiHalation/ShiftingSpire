@@ -18,7 +18,7 @@ public class BuffHelper implements PostPowerApplySubscriber {
                 Equipment ironclad = ShiftingSpire.inventory.ironcladEquipped;
                 switch(ShiftingSpire.inventory.ironcladEquipped.equipid) {
                     case LONGBLADE:
-                        if(abstractPower.ID.equals("Strength"))
+                        if(abstractPower.ID.equals("Strength") && abstractPower.amount > 0)
                             ((LongBlade) ironclad).applyStrMod();
                         if(abstractPower.ID.equals("Flex"))
                             ((LongBlade) ironclad).appleStrModDown();

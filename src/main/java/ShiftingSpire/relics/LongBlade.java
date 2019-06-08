@@ -4,6 +4,7 @@ import ShiftingSpire.Equipment;
 import ShiftingSpire.EquipmentID;
 import ShiftingSpire.powers.DemonicStrength;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.unique.AddCardToDeckAction;
 import com.megacrit.cardcrawl.cards.red.Flex;
@@ -80,11 +81,11 @@ public class LongBlade extends ShiftingSpire.Equipment {
         }
 
         if(level >= 5)
-            AbstractDungeon.actionManager.addToTop(new AddCardToDeckAction(new Flex()));
+            AbstractDungeon.actionManager.addToTop(new MakeTempCardInDrawPileAction(new Flex(), 1, true, true));
         if(level >= 10)
-            AbstractDungeon.actionManager.addToTop(new AddCardToDeckAction(new Pummel()));
+            AbstractDungeon.actionManager.addToTop(new MakeTempCardInDrawPileAction(new Pummel(), 1, true, true));
         if(level >= 15)
-            AbstractDungeon.actionManager.addToTop(new AddCardToDeckAction(new LimitBreak()));
+            AbstractDungeon.actionManager.addToTop(new MakeTempCardInDrawPileAction(new LimitBreak(), 1, true, true));
         if(level >= 20)
             AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(AbstractDungeon.player,
                     AbstractDungeon.player, new DemonicStrength(AbstractDungeon.player)));

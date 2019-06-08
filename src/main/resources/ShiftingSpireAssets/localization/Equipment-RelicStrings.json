@@ -11,10 +11,10 @@
       "Whenever you gain #yStrength outside this relic, gain an additional #b",
       " #yStrength. #yStrength #yDown is also affected. NL ",
       "Enemies with #yVulnerable receive #b+",
-      "% more damage. NL "
-      "At the start of combat, add a Flex to your deck. NL"
-      "At the start of combat, add a Pummel to your deck. NL"
-      "At the start of combat, add a Limit Break to your deck. NL"
+      "% more damage. NL ",
+      "At the start of combat, add a Flex to your deck. NL",
+      "At the start of combat, add a Pummel to your deck. NL",
+      "At the start of combat, add a Limit Break to your deck. NL",
       "At the start of combat, gain 1 Demonic Strength. NL"
 
     ]
