@@ -23,12 +23,11 @@ public class Inventory {
 
     private HashSet<Equipment> inventory;
 
-    Equipment ironcladEquipped;
-    Equipment silentEquipped;
-    //TODO: other classes
+    private HashMap<PlayerID, Equipment> equipped;
 
     Inventory(){
         inventory = new HashSet<>();
+        equipped = new HashMap<>();
         loadInventory();
     }
 
@@ -45,10 +44,10 @@ public class Inventory {
 
         map.put("inventory", items);
         items = new ArrayList<>();
-        items.add(ironcladEquipped.save());
+        items.add(equipped.get(PlayerID.IRONCLAD).save());
         map.put("ironclad", items);
         items = new ArrayList<>();
-        items.add(silentEquipped.save());
+        items.add(equipped.get(PlayerID.SILENT).save());
         map.put("silent", items);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String str = gson.toJson(map);
@@ -82,8 +81,8 @@ public class Inventory {
                 for(InvenData i : items) {
                     addToInventory(EquipmentHelper.createFromData(i));
                 }
-                ironcladEquipped = EquipmentHelper.createFromData(map.get("ironclad").get(0));
-                silentEquipped = EquipmentHelper.createFromData(map.get("silent").get(0));
+                equipped.put(PlayerID.IRONCLAD, EquipmentHelper.createFromData(map.get("ironclad").get(0)));
+                equipped.put(PlayerID.SILENT, EquipmentHelper.createFromData(map.get("silent").get(0)));
                 ShiftingSpire.logger.info("INVENTORY: " + inventory.toString());
 
             } catch (GdxRuntimeException e) {
@@ -94,10 +93,10 @@ public class Inventory {
             }
         }
 
-        if(ironcladEquipped == null)
-            ironcladEquipped = EquipmentHelper.generate(EquipmentID.LONGBLADE, 0); //TODO: Other classes
-        if(silentEquipped == null)
-            silentEquipped = EquipmentHelper.generate(EquipmentID.INFECTEDDAGGER, 0);
+        if(!equipped.containsKey(PlayerID.IRONCLAD))
+            equipped.put(PlayerID.IRONCLAD,EquipmentHelper.generate(EquipmentID.LONGBLADE, 0));
+        if(!equipped.containsKey(PlayerID.SILENT))
+            equipped.put(PlayerID.SILENT,EquipmentHelper.generate(EquipmentID.INFECTEDDAGGER, 0)); //TODO: Other classes
 
     }
 
@@ -107,19 +106,14 @@ public class Inventory {
     }
 
     void equip(Equipment e, PlayerID player) {
-        Equipment equipped;
-        if(player == PlayerID.IRONCLAD) {
-            equipped = ironcladEquipped;
-            unequip(ironcladEquipped);
-            ironcladEquipped = (Equipment) e.makeCopy();
-            ironcladEquipped.instantObtain();
-        }
+        Equipment toremove = equipped.get(player);
+        unequip(toremove);
+        equipped.put(player, (Equipment) e.makeCopy());
+        e.instantObtain();
     }
 
     public void reequip(PlayerID player){
-        Equipment e = null;
-        if(player == PlayerID.IRONCLAD)
-            e = ironcladEquipped;
+        Equipment e = equipped.get(player);
         unequip(e);
         equip(e, player);
 
@@ -137,6 +131,10 @@ public class Inventory {
                 ShiftingSpire.logger.info("FAILED!");
         }
         //TODO: other things after unequip
+    }
+
+    public Equipment getEquip(PlayerID player) {
+        return equipped.get(player);
     }
 
     public void render(SpriteBatch sb) {

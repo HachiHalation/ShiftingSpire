@@ -9,7 +9,6 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.chests.AbstractChest;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class ArmoryChest extends AbstractChest {
     public ArmoryChest() {

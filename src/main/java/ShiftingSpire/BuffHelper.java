@@ -16,7 +16,7 @@ public class BuffHelper implements PostPowerApplySubscriber {
     public void receivePostPowerApplySubscriber(AbstractPower abstractPower, AbstractCreature target, AbstractCreature source) {
         if(target != null && target.isPlayer) {
             if(ShiftingSpire.player == PlayerID.IRONCLAD) {
-                Equipment ironclad = ShiftingSpire.inventory.ironcladEquipped;
+                Equipment ironclad = ShiftingSpire.inventory.getEquip(PlayerID.IRONCLAD);
                 if(ironclad.equipid == EquipmentID.LONGBLADE) {
                         if(abstractPower.ID.equals("Strength") && abstractPower.amount > 0)
                             ((LongBlade) ironclad).applyStrMod();
@@ -28,7 +28,7 @@ public class BuffHelper implements PostPowerApplySubscriber {
         }
         if(target != null) {
             if(ShiftingSpire.player == PlayerID.SILENT) {
-                Equipment silent = ShiftingSpire.inventory.silentEquipped;
+                Equipment silent = ShiftingSpire.inventory.getEquip(PlayerID.SILENT);
                 if(silent.equipid == EquipmentID.INFECTEDDAGGER){
                     if(abstractPower.ID.equals("Poison")) {
                         abstractPower.amount *= ((InfectedDagger) silent).getPoisonBuff(); //TODO: HOW DO I TELL THE PLAYER HOW MUCH POISON THEY ARE APPLYING????

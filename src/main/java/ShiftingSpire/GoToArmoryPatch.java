@@ -36,7 +36,7 @@ public class GoToArmoryPatch {
         else if (currentRoom instanceof ArmoryRoom) {
             if (AbstractDungeon.id.equals("TheBeyond")) {
                 if (AbstractDungeon.ascensionLevel >= 20 && AbstractDungeon.bossList.size() == 2) {
-                    AbstractDungeon.bossKey = (String)AbstractDungeon.bossList.get(0);
+                    AbstractDungeon.bossKey = AbstractDungeon.bossList.get(0);
                     dest = new MonsterRoomBoss();
                 } else if (!Settings.isEndless) {
                     dest = new VictoryRoom(VictoryRoom.EventType.HEART);
