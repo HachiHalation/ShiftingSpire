@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.chests.AbstractChest;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ArmoryChest extends AbstractChest {
     public ArmoryChest() {
@@ -25,9 +26,10 @@ public class ArmoryChest extends AbstractChest {
         CardCrawlGame.sound.play("CHEST_OPEN");
 
         ArrayList<AbstractRelic> rewards = new ArrayList<>();
-        rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
-        rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
-        rewards.add(EquipmentHelper.generate(EquipmentID.LONGBLADE, AbstractDungeon.ascensionLevel));
+        rewards.add(EquipmentHelper.genRandom(AbstractDungeon.ascensionLevel + 1));
+        rewards.add(EquipmentHelper.genRandom(AbstractDungeon.ascensionLevel + 1));
+        rewards.add(EquipmentHelper.genRandom(AbstractDungeon.ascensionLevel + 1));
+
 
         AbstractDungeon.bossRelicScreen.open(rewards);
     }

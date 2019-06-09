@@ -31,7 +31,7 @@ public class BuffHelper implements PostPowerApplySubscriber {
                 Equipment silent = ShiftingSpire.inventory.getEquip(PlayerID.SILENT);
                 if(silent.equipid == EquipmentID.INFECTEDDAGGER){
                     if(abstractPower.ID.equals("Poison")) {
-                        abstractPower.amount *= ((InfectedDagger) silent).getPoisonBuff(); //TODO: HOW DO I TELL THE PLAYER HOW MUCH POISON THEY ARE APPLYING????
+                        ((InfectedDagger) silent).applyPoisonBuff(abstractPower.amount, abstractPower.owner); //TODO: HOW DO I TELL THE PLAYER HOW MUCH POISON THEY ARE APPLYING????
                     }
                 }
             }

@@ -69,9 +69,11 @@ public class InventoryScreen {
     private void updateClick() {
         if(hovered != null && hovered.hb.clickStarted) {
             if(clicked != null) clicked.stopPulse();
-            clicked = hovered;
-            clicked.beginLongPulse();
-            equipButtton.isDisabled = false;
+            if(EquipmentHelper.canBeEquipped(hovered)){
+                clicked = hovered;
+                clicked.beginLongPulse();
+                equipButtton.isDisabled = false;
+            } else equipButtton.isDisabled = true;
         }
 
         if(!equipButtton.isDisabled && equipButtton.isHovered && equipButtton.hb.clicked) {
@@ -106,6 +108,8 @@ public class InventoryScreen {
     public void render(SpriteBatch sb) {
         equipButtton.render(sb);
         inventory.render(sb);
+        if(hovered != null)
+            hovered.renderTip(sb);
     }
 
 }

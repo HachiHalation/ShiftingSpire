@@ -108,8 +108,9 @@ public class Inventory {
     void equip(Equipment e, PlayerID player) {
         Equipment toremove = equipped.get(player);
         unequip(toremove);
-        equipped.put(player, (Equipment) e.makeCopy());
-        e.instantObtain();
+        Equipment copy = (Equipment) e.makeCopy();
+        equipped.put(player, copy);
+        copy.instantObtain();
     }
 
     public void reequip(PlayerID player){
@@ -121,14 +122,17 @@ public class Inventory {
 
     private void unequip(Equipment e) {
         Equipment eq = (Equipment) AbstractDungeon.player.getRelic(e.relicId);
-
-        if(eq == e) {
-            ShiftingSpire.logger.info("Removing " + e.relicId + "\n");
-            boolean result = AbstractDungeon.player.loseRelic(e.relicId);
-            if(result)
-                ShiftingSpire.logger.info("Removed succesfully");
-            else
-                ShiftingSpire.logger.info("FAILED!");
+        if(eq == null)
+            ShiftingSpire.logger.info("No matching equipment found???");
+        else {
+            if (eq.equals(e)) {
+                ShiftingSpire.logger.info("Removing " + e.relicId + "\n");
+                boolean result = AbstractDungeon.player.loseRelic(e.relicId);
+                if (result)
+                    ShiftingSpire.logger.info("Removed succesfully");
+                else
+                    ShiftingSpire.logger.info("FAILED!");
+            }
         }
         //TODO: other things after unequip
     }

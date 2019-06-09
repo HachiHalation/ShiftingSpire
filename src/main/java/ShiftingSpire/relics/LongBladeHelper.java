@@ -1,11 +1,11 @@
 package ShiftingSpire.relics;
 
-import ShiftingSpire.ShiftingSpire;
-import ShiftingSpire.Equipment;
+import ShiftingSpire.*;
 import com.badlogic.gdx.graphics.Texture;
-import ShiftingSpire.EquipmentID;
+
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static ShiftingSpire.EquipmentHelper.allocatePoints;
 
@@ -46,11 +46,16 @@ public class LongBladeHelper {
         return costs;
     }
 
-    public static void initialize(HashMap<EquipmentID, String[]> categs, HashMap<EquipmentID, HashMap<String, Integer>> costs, HashMap<EquipmentID, Equipment> base) {
+    public static void initialize(HashMap<EquipmentID, String[]> categs, HashMap<EquipmentID, HashMap<String, Integer>> costs, HashMap<EquipmentID, Equipment> base,
+                                  HashMap<PlayerID, HashSet<EquipmentID>> canequip) {
         ShiftingSpire.logger.info("Add LongBlade");
         categs.put(EquipmentID.LONGBLADE, LongBladeHelper.initializeCategories());
         costs.put(EquipmentID.LONGBLADE, LongBladeHelper.initializeCosts());
         base.put(EquipmentID.LONGBLADE, new LongBlade(0, allocatePoints(0,
                 costs.get(EquipmentID.LONGBLADE), categs.get(EquipmentID.LONGBLADE))));
+
+        HashSet<EquipmentID> eq = canequip.get(PlayerID.IRONCLAD);
+        eq.add(EquipmentID.LONGBLADE);
+        canequip.put(PlayerID.IRONCLAD, eq);
     }
 }

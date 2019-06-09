@@ -2,27 +2,31 @@ package ShiftingSpire;
 
 
 import ShiftingSpire.relics.InfectedDaggerHelper;
-import ShiftingSpire.relics.LongBlade;
 import ShiftingSpire.relics.LongBladeHelper;
 import com.badlogic.gdx.graphics.Texture;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class EquipmentHelper {
     private static HashMap<EquipmentID, String[]> categs;
     private static HashMap<EquipmentID, HashMap<String, Integer>> costs;
     private static HashMap<EquipmentID, Equipment> base;
+    private static HashMap<PlayerID, HashSet<EquipmentID>> canequip;
     private static HashMap<EquipmentID, Texture> textures;
 
     public static void initializeEquipment() {
-        base = new HashMap<EquipmentID, Equipment>();
-        categs = new HashMap<EquipmentID, String[]>();
-        costs = new HashMap<EquipmentID, HashMap<String, Integer>>();
-        textures = new HashMap<EquipmentID, Texture>();
+        base = new HashMap<>();
+        categs = new HashMap<>();
+        costs = new HashMap<>();
+        canequip = new HashMap<>();
+        for(PlayerID p : PlayerID.values()) {
+            canequip.put(p, new HashSet<>());
+        }
+        textures = new HashMap<>();
 
-        LongBladeHelper.initialize(categs, costs, base);
-        InfectedDaggerHelper.initialize(categs, costs, base);
+        LongBladeHelper.initialize(categs, costs, base, canequip);
+        InfectedDaggerHelper.initialize(categs, costs, base, canequip);
 
     }
 
@@ -44,12 +48,20 @@ public class EquipmentHelper {
         return base.get(eid).makeType(level, allocatePoints(level, costs.get(eid), categs.get(eid)));
     }
 
+    public static Equipment genRandom(int level) {
+        return generate(EquipmentID.values()[ShiftingSpire.stat_random.nextInt(base.size())], level);
+    }
+
     public static Equipment createFromAttr(EquipmentID eid, int level, int[] attr) {
         return base.get(eid).makeType(level, attr);
     }
 
     public static Equipment createFromData(InvenData data) {
         return createFromAttr(data.eid, data.level, data.attributes);
+    }
+
+    public static boolean canBeEquipped(Equipment e) {
+        return canequip.get(ShiftingSpire.player).contains(e.equipid);
     }
 
 }

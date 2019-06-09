@@ -4,6 +4,7 @@ import ShiftingSpire.Equipment;
 import ShiftingSpire.EquipmentID;
 import ShiftingSpire.powers.DemonicStrength;
 import com.badlogic.gdx.graphics.Texture;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
@@ -16,10 +17,12 @@ import com.megacrit.cardcrawl.cards.green.DeadlyPoison;
 import com.megacrit.cardcrawl.cards.red.Flex;
 import com.megacrit.cardcrawl.cards.red.LimitBreak;
 import com.megacrit.cardcrawl.cards.red.Pummel;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.powers.EnvenomPower;
 import com.megacrit.cardcrawl.powers.NoxiousFumesPower;
+import com.megacrit.cardcrawl.powers.PoisonPower;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 
 public class InfectedDagger extends ShiftingSpire.Equipment{
@@ -77,8 +80,9 @@ public class InfectedDagger extends ShiftingSpire.Equipment{
 
     }
 
-    public int getPoisonBuff(){
-        return 1 + poison_buff;
+    public void applyPoisonBuff(int amount, AbstractCreature target){
+        int add = (new Double(Math.floor(amount * (1 + (poison_buff*weights[POISON_INDEX])/100D)))).intValue();
+        AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(target, AbstractDungeon.player, new PoisonPower(target, AbstractDungeon.player, add), add, true, AbstractGameAction.AttackEffect.POISON));
     }
 
     @Override

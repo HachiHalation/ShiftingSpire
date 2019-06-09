@@ -1,13 +1,11 @@
 package ShiftingSpire.relics;
-import ShiftingSpire.Equipment;
-import ShiftingSpire.EquipmentID;
-import ShiftingSpire.ShiftingSpire;
+import ShiftingSpire.*;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static ShiftingSpire.EquipmentHelper.allocatePoints;
-import static ShiftingSpire.EquipmentHelper.generate;
 
 public class InfectedDaggerHelper {
     public static Texture getTexture(int level){
@@ -47,12 +45,17 @@ public class InfectedDaggerHelper {
         return null;
     }
 
-    public static void initialize(HashMap<EquipmentID, String[]> categs, HashMap<EquipmentID, HashMap<String, Integer>> costs, HashMap<EquipmentID, Equipment> base) {
+    public static void initialize(HashMap<EquipmentID, String[]> categs, HashMap<EquipmentID, HashMap<String, Integer>> costs, HashMap<EquipmentID, Equipment> base,
+                                  HashMap<PlayerID, HashSet<EquipmentID>> canequip) {
         ShiftingSpire.logger.info("Add InfectedDagger");
         categs.put(EquipmentID.INFECTEDDAGGER, InfectedDaggerHelper.initializeCategories());
         costs.put(EquipmentID.INFECTEDDAGGER, InfectedDaggerHelper.initializeCosts());
         base.put(EquipmentID.INFECTEDDAGGER, new InfectedDagger(0, allocatePoints(0,
                 costs.get(EquipmentID.INFECTEDDAGGER), categs.get(EquipmentID.INFECTEDDAGGER))));
+
+        HashSet<EquipmentID> eq = canequip.get(PlayerID.SILENT);
+        eq.add(EquipmentID.INFECTEDDAGGER);
+        canequip.put(PlayerID.SILENT, eq);
     }
 
 }

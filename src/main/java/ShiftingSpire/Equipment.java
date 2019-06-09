@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public abstract class Equipment extends CustomRelic {
     protected int[] attributes;
@@ -73,5 +74,23 @@ public abstract class Equipment extends CustomRelic {
                 ", weights=" + Arrays.toString(weights) +
                 ", level=" + level +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipment equipment = (Equipment) o;
+        return level == equipment.level &&
+                Arrays.equals(attributes, equipment.attributes) &&
+                equipid == equipment.equipid;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(equipid, level);
+        result = 31 * result + Arrays.hashCode(attributes);
+        result = 31 * result + Arrays.hashCode(weights);
+        return result;
     }
 }
